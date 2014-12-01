@@ -1,5 +1,6 @@
 /**
- * 
+ * If debugging is the process of removing bugs, then programming must be the process of putting them in.
+ * Edsger W. Dijkstra
  */
 package org.nenocom.nlib;
 
@@ -18,17 +19,25 @@ public class NlibRenderer implements Renderer {
 	
 	//Contexto de la aplicacion
 	private final Context context;
-
+	
+	private float[] projectionMatrix = new float[16];
+	private GlObject objeto;
+	private GlObject objeto2;
+	
 	/**
 	 * @param context Contexto de la aplicacion(MainActivity)
 	 */
 	public NlibRenderer(Context context) {
 		this.context = context;
+		
 	}
 	
 	@Override
 	public void onDrawFrame(GL10 unused) {
 		glClear(GL_COLOR_BUFFER_BIT);
+		objeto.onDrawFrame();
+		objeto2.onDrawFrame();
+		
 		
 	}
 	
@@ -36,9 +45,12 @@ public class NlibRenderer implements Renderer {
 	 * 
 	 */
 	@Override
-	public void onSurfaceChanged(GL10 unused, int arg1, int arg2) {
-		// TODO Auto-generated method stub
-
+	public void onSurfaceChanged(GL10 unused, int widht, int height) {
+		glViewport(0, 0, widht, height);
+		MMatrix.setPerspective(projectionMatrix, 45, (float) widht / (float) height, 1f, 100000f);
+		objeto.setProjectionMatrix(projectionMatrix);
+		objeto2.setProjectionMatrix(projectionMatrix);
+		
 	}
 	
 	/**
@@ -47,10 +59,18 @@ public class NlibRenderer implements Renderer {
 	@Override
 	public void onSurfaceCreated(GL10 unused, EGLConfig arg1) {
 		float alpha = 1;
-		float blue = 0.8f;
-		float green = 0.5f;
-		float red = 0;
+		float blue = 0.0f;
+		float green = 0.7f;
+		float red = 1.0f;
 		glClearColor(red, green, blue, alpha);
+		glEnable(GL_DEPTH_TEST);
+		objeto = new GraysKleynBottle(this);
+		objeto.translate(4, 0, -15f);
+		objeto.setDrawMode(GL_LINE_STRIP);
+		
+		objeto2 = new KleinBottle(this);
+		objeto2.translate(-18, 0, -50f);
+		objeto2.setDrawMode(GL_LINE_STRIP);
 		
 	}
 
