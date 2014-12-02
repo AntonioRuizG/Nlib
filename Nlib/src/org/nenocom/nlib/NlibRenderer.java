@@ -9,6 +9,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import org.nenocom.nlib.test.GraysKleynBottle;
 import org.nenocom.nlib.test.KleinBottle;
+import org.nenocom.nlib.test.Sphere;
 import org.nenocom.nlib.utils.MMatrix;
 
 import android.content.Context;
@@ -27,6 +28,7 @@ public class NlibRenderer implements Renderer {
 	private float[] projectionMatrix = new float[16];
 	private ColorLightObject objeto;
 	private ColorLightObject objeto2;
+	private ColorLightObject esfera;
 	
 	/**
 	 * @param context Contexto de la aplicacion(MainActivity)
@@ -42,6 +44,11 @@ public class NlibRenderer implements Renderer {
 		
 		objeto2.onDrawFrame();
 		objeto.onDrawFrame();
+		esfera.onDrawFrame();
+		
+		
+		
+		esfera.rotate(-1, 1, 1, 0);
 		
 		
 	}
@@ -55,6 +62,7 @@ public class NlibRenderer implements Renderer {
 		MMatrix.setPerspective(projectionMatrix, 45, (float) widht / (float) height, 1f, 100000f);
 		objeto.setProjectionMatrix(projectionMatrix);
 		objeto2.setProjectionMatrix(projectionMatrix);
+		esfera.setProjectionMatrix(projectionMatrix);
 		
 	}
 	
@@ -72,6 +80,10 @@ public class NlibRenderer implements Renderer {
 		objeto = new GraysKleynBottle(this);
 		objeto.translate(4, 0, -15f);
 		objeto.setDrawMode(GL_TRIANGLE_STRIP);
+		
+		esfera = new Sphere(this);
+		esfera.translate(0, 0, -10f);
+		esfera.setDrawMode(GL_LINES);
 		
 		objeto2 = new KleinBottle(this);
 		objeto2.translate(-18, 0, -50f);
