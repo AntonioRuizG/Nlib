@@ -29,8 +29,8 @@ public class PerPixelShader extends Shader {
 						
 				"	vColor = aColor;" + "\n" +
 					
-					
-				"    vNormal = vec3(MVmatrix * vec4(aNormal, 0.0));" + "\n" +
+				"	//vNormal = normalize(vNormal); " + "\n" +
+				"   vNormal = vec3(MVmatrix * vec4(aNormal, 0.0));" + "\n" +
 				          
 				"	gl_Position = MVPmatrix * aPosition;" + "\n" +
 				"}";
@@ -44,6 +44,9 @@ public class PerPixelShader extends Shader {
 				"varying vec3 vPosition;" + "\n" +
 				"varying vec4 vColor;" + "\n" +
 				"varying vec3 vNormal;" + "\n" +
+				"const float ambient = 0.4;" + "\n" +
+				"const vec3 diffuseColor = vec3(0.1, 0.1, 0.1);" + "\n" +
+				"const vec3 specColor = vec3(0.5, 0.5, 0.5);" + "\n" +
 				
 				"void main()" + "\n" +
 				"{" + "\n" +
@@ -51,13 +54,19 @@ public class PerPixelShader extends Shader {
 					
 				"	vec3 lightVector = normalize(uLightPos - vPosition);" + "\n" +
 					
-				"	float diffuse = max(dot(vNormal, lightVector), 0.0);" + "\n" +
-					
-				"	diffuse = diffuse * (1.0 / (1.0 + (0.80 * distance)));" + "\n" +
-					
-				"	diffuse = diffuse + 0.6;" + "\n" +
-					
-				"	gl_FragColor = (vColor * diffuse);" + "\n" +
+				"	vec3 reflectDir = reflect(-lightVector, vNormal);" + "\n" +
+				
+				"	float lambertian = max(dot(lightVector, vNormal), 0.0);" + "\n" +
+				
+				"	float specular = 0.0;" + "\n" +
+				"	if(lambertian > 0.0) {" + "\n" +
+				"		float specAngle = max(dot(reflectDir, normalize(-vPosition)), 0.0);" + "\n" +
+				"		specular = pow(specAngle, 1.5);" + "\n" +
+				"	}" + "\n" +
+				"	lambertian = lambertian * (1.0 / (1.0 + (0.80 * distance)));" + "\n" +
+				"	specular = specular * (1.0 / (1.0 + (0.80 * distance)));" + "\n" +
+				
+				"	gl_FragColor = vec4(ambient*vec3(vColor) + lambertian*vec3(vColor) + specular*vec3(vColor), vColor.a);" + "\n" +
 				"}";
 	}
 }

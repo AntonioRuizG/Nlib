@@ -56,7 +56,9 @@ public abstract class GlObject {
 		float[] colors = getColors();
 		float[] normals = getNormals();
 		vertexCount = vertices.length/3;
-		//TODO test if colors and normals.size == vertices.size Im lazy
+		if(vertices.length != colors.length || vertices.length != normals.length){
+			throw new RuntimeException("Vertices, colors and normals must be equal size"); 
+		}
 		
 		
 		vertexBufferHandler = getBufferHandler(vertices);
@@ -64,7 +66,7 @@ public abstract class GlObject {
 		normalBufferHandler = getBufferHandler(normals);
 		
 		//TODO make this a list accesible from outside the class
-		lightPos = new float[]{0, 0, 0};
+		lightPos = new float[]{0, 0, 20};
 		
 		MVPmatrix = new float[16];
 		MVmatrix = new float[16];
@@ -160,18 +162,31 @@ public abstract class GlObject {
 		this.projectionMatrix = projectionMatrix;
 	}
 
-	public void translate(float f, float g, float h) {
-		Matrix.translateM(modelMatrix, 0, f, g, h);		
+	public void translate(float x, float y, float z) {
+		Matrix.translateM(modelMatrix, 0, x, y, z);		
 	}
 
+	public void rotate(float angleInDegrees, float x, float y, float z){
+		Matrix.rotateM(modelMatrix, 0, angleInDegrees, x, y, z);
+	}
+	
+	public void scale(float sx, float sy, float sz){
+		Matrix.scaleM(modelMatrix, 0, sx, sy, sz);
+	}
+	
 	/**
-	 * @param glLines
+	 * @param drawMode GLES20 draw mode.
 	 */
 	public void setDrawMode(int drawMode) {
 		this.drawMode = drawMode;
 	}
 	
-	//TODO destroy method
+	public void destroy(){
+		//TODO comprobar referencias
+		int[] buffers = new int[]{vertexBufferHandler, colorBufferHandler, normalBufferHandler};
+		glDeleteBuffers(buffers.length, buffers, 0);
+		shader.destroy();
+	}
 	
-	//TODO rotate and scale methods
+	
 }

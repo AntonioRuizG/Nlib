@@ -35,8 +35,9 @@ public class NlibRenderer implements Renderer {
 	@Override
 	public void onDrawFrame(GL10 unused) {
 		glClear(GL_COLOR_BUFFER_BIT);
-		objeto.onDrawFrame();
+		
 		objeto2.onDrawFrame();
+		objeto.onDrawFrame();
 		
 		
 	}
@@ -66,12 +67,11 @@ public class NlibRenderer implements Renderer {
 		glEnable(GL_DEPTH_TEST);
 		objeto = new GraysKleynBottle(this);
 		objeto.translate(4, 0, -15f);
-		objeto.setDrawMode(GL_LINE_STRIP);
+		objeto.setDrawMode(GL_TRIANGLE_STRIP);
 		
 		objeto2 = new KleinBottle(this);
 		objeto2.translate(-18, 0, -50f);
-		objeto2.setDrawMode(GL_LINE_STRIP);
-		
+		objeto2.setDrawMode(GL_LINES);
 	}
 
 	/**

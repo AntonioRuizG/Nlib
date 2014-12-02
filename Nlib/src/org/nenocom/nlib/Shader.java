@@ -75,4 +75,12 @@ public abstract class Shader {
 
 		return program;
 	}
+
+	/**
+	 * 
+	 */
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
 }

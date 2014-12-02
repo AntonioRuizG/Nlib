@@ -34,10 +34,9 @@ public class GraysKleynBottle extends GlObject {
 		for(int j=0;j<samplesV;j++){
 			for(int i=0;i<samplesU;i++){
 				
-				float u = (float) (((j*3)/(float)(samplesU))*2*Math.PI);
-				
-				double[] color=getColor(u);
 				for(int k=0;k<4;k++){
+					float u = (float) ((((k/2+j)*2)/(float)(samplesU))*2*Math.PI);
+					double[] color=getColor(u);
 					colores[offset++] = (float) color[0];
 					colores[offset++] = (float) color[1];
 					colores[offset++] = (float) color[2];
@@ -53,7 +52,7 @@ public class GraysKleynBottle extends GlObject {
 		
 		color[0] = (Math.cos(u)+1.0)/2.0;
 		color[1] = (Math.sin(u)+1.0)/2.0;
-		color[2] = (Math.cos(u*2)+1.0)/2.0;
+		color[2] = (Math.cos(2*u+1)+1.0)/2.0;
 		color[3] = 0.5f;
 		return color;
 	}

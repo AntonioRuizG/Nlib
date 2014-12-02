@@ -29,20 +29,56 @@ public class KleinBottle extends GlObject {
 
 	@Override
 	protected float[] getColors() {
-		float[] colores = new float[samplesV*samplesU*16];
+		float[] colores = new float[samplesV*samplesU*24];
 		int offset=0;
 		for(int j=0;j<samplesV;j++){
 			for(int i=0;i<samplesU;i++){
 				
-				float u = (float) (((j*5)/(float)(samplesU))*2*Math.PI);
 				
-				double[] color=getColor(u);
-				for(int k=0;k<4;k++){
-					colores[offset++] = (float) color[0];
-					colores[offset++] = (float) color[1];
-					colores[offset++] = (float) color[2];
-					colores[offset++] = (float) color[3];
-				}
+				
+				
+				float u = (float) ((j/(float)samplesU)*2*Math.PI);
+				double[] vertice=getColor(u);
+				colores[offset++] = (float) vertice[0];
+				colores[offset++] = (float) vertice[1];
+				colores[offset++] = (float) vertice[2];
+				colores[offset++] = (float) vertice[3];
+				
+				u = (float) (((j)/(float)samplesU)*2*Math.PI);
+				vertice=getColor(u);
+				colores[offset++] = (float) vertice[0];
+				colores[offset++] = (float) vertice[1];
+				colores[offset++] = (float) vertice[2];
+				colores[offset++] = (float) vertice[3];
+				
+				u = (float) (((j+1)/(float)samplesU)*2*Math.PI);
+				vertice=getColor(u);
+				colores[offset++] = (float) vertice[0];
+				colores[offset++] = (float) vertice[1];
+				colores[offset++] = (float) vertice[2];
+				colores[offset++] = (float) vertice[3];
+				
+				u = (float) (((j)/(float)samplesU)*2*Math.PI);
+				vertice=getColor(u);
+				colores[offset++] = (float) vertice[0];
+				colores[offset++] = (float) vertice[1];
+				colores[offset++] = (float) vertice[2];
+				colores[offset++] = (float) vertice[3];
+				
+				u = (float) (((j+1)/(float)samplesU)*2*Math.PI);
+				vertice=getColor(u);
+				colores[offset++] = (float) vertice[0];
+				colores[offset++] = (float) vertice[1];
+				colores[offset++] = (float) vertice[2];
+				colores[offset++] = (float) vertice[3];
+				
+				u = (float) (((j+1)/(float)samplesU)*2*Math.PI);
+				vertice=getColor(u);
+				colores[offset++] = (float) vertice[0];
+				colores[offset++] = (float) vertice[1];
+				colores[offset++] = (float) vertice[2];
+				colores[offset++] = (float) vertice[3];
+				
 			}
 		}
 		return colores;
@@ -53,8 +89,8 @@ public class KleinBottle extends GlObject {
 		
 		color[0] = (Math.cos(u)+1.0)/2.0;
 		color[1] = (Math.sin(u)+1.0)/2.0;
-		color[2] = (Math.cos(u)+1.0)/2.0;
-		color[3] = 0.5f;
+		color[2] = (Math.cos(2*u+1)+1.0)/2.0;
+		color[3] = 0.6f;
 		return color;
 	}
 
@@ -67,14 +103,13 @@ public class KleinBottle extends GlObject {
 	
 	protected float[] getVertices() {
 		
-		float[] vertices = new float[samplesV*samplesU*12];
+		float[] vertices = new float[samplesV*samplesU*18];
 		int offset=0;
 		for(int j=0;j<samplesV;j++){
 			for(int i=0;i<samplesU;i++){
 				
 				float v = (float) ((i/(float)samplesV)*2*Math.PI);
 				float u = (float) ((j/(float)samplesU)*2*Math.PI);
-				
 				double[] vertice=getVertice(u, v);
 				vertices[offset++] = (float) vertice[0];
 				vertices[offset++] = (float) vertice[1];
@@ -87,8 +122,15 @@ public class KleinBottle extends GlObject {
 				vertices[offset++] = (float) vertice[1];
 				vertices[offset++] = (float) vertice[2];
 				
-				v = (float) ((i/(float)samplesV)*2*Math.PI);
+				v = (float) (((i+1)/(float)samplesV)*2*Math.PI);
 				u = (float) (((j+1)/(float)samplesU)*2*Math.PI);
+				vertice=getVertice(u, v);
+				vertices[offset++] = (float) vertice[0];
+				vertices[offset++] = (float) vertice[1];
+				vertices[offset++] = (float) vertice[2];
+				
+				v = (float) (((i)/(float)samplesV)*2*Math.PI);
+				u = (float) (((j)/(float)samplesU)*2*Math.PI);
 				vertice=getVertice(u, v);
 				vertices[offset++] = (float) vertice[0];
 				vertices[offset++] = (float) vertice[1];
@@ -100,6 +142,15 @@ public class KleinBottle extends GlObject {
 				vertices[offset++] = (float) vertice[0];
 				vertices[offset++] = (float) vertice[1];
 				vertices[offset++] = (float) vertice[2];
+				
+				v = (float) (((i)/(float)samplesV)*2*Math.PI);
+				u = (float) (((j+1)/(float)samplesU)*2*Math.PI);
+				vertice=getVertice(u, v);
+				vertices[offset++] = (float) vertice[0];
+				vertices[offset++] = (float) vertice[1];
+				vertices[offset++] = (float) vertice[2];
+				
+				
 			}
 		}
 		return vertices;
