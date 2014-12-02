@@ -7,6 +7,10 @@ package org.nenocom.nlib;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import org.nenocom.nlib.test.GraysKleynBottle;
+import org.nenocom.nlib.test.KleinBottle;
+import org.nenocom.nlib.utils.MMatrix;
+
 import android.content.Context;
 import static android.opengl.GLES20.*;
 import android.opengl.GLSurfaceView.Renderer;
@@ -21,8 +25,8 @@ public class NlibRenderer implements Renderer {
 	private final Context context;
 	
 	private float[] projectionMatrix = new float[16];
-	private GlObject objeto;
-	private GlObject objeto2;
+	private ColorLightObject objeto;
+	private ColorLightObject objeto2;
 	
 	/**
 	 * @param context Contexto de la aplicacion(MainActivity)
