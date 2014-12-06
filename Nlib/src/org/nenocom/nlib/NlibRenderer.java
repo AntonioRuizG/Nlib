@@ -26,16 +26,18 @@ public class NlibRenderer implements Renderer {
 	private final Context context;
 	
 	private float[] projectionMatrix = new float[16];
-	private ColorLightObject objeto;
+	//private ColorLightObject objeto;
 	private ColorLightObject objeto2;
-	private ColorLightObject esfera;
+	//private ColorLightObject esfera;
+	private PhongMonkey monkey;
 	
 	/**
 	 * @param context Contexto de la aplicacion(MainActivity)
 	 */
 	public NlibRenderer(Context context) {
 		this.context = context;
-		
+		ObjLoader.setContext(context);
+		ObjLoader.putObject("monkey", R.raw.monkey);
 	}
 	
 	@Override
@@ -43,12 +45,12 @@ public class NlibRenderer implements Renderer {
 		glClear(GL_COLOR_BUFFER_BIT);
 		
 		objeto2.onDrawFrame();
-		objeto.onDrawFrame();
-		esfera.onDrawFrame();
+		//objeto.onDrawFrame();
+		//esfera.onDrawFrame();
+		monkey.onDrawFrame();
+		monkey.rotate(1, 0, 1, 0);
 		
-		
-		
-		esfera.rotate(-1, 1, 1, 0);
+		//esfera.rotate(-1, 1, 1, 0);
 		
 		
 	}
@@ -60,9 +62,10 @@ public class NlibRenderer implements Renderer {
 	public void onSurfaceChanged(GL10 unused, int widht, int height) {
 		glViewport(0, 0, widht, height);
 		MMatrix.setPerspective(projectionMatrix, 45, (float) widht / (float) height, 1f, 100000f);
-		objeto.setProjectionMatrix(projectionMatrix);
+		//objeto.setProjectionMatrix(projectionMatrix);
 		objeto2.setProjectionMatrix(projectionMatrix);
-		esfera.setProjectionMatrix(projectionMatrix);
+		//esfera.setProjectionMatrix(projectionMatrix);
+		monkey.setProjectionMatrix(projectionMatrix);
 		
 	}
 	
@@ -77,13 +80,18 @@ public class NlibRenderer implements Renderer {
 		float red = 1.0f;
 		glClearColor(red, green, blue, alpha);
 		glEnable(GL_DEPTH_TEST);
-		objeto = new GraysKleynBottle(this);
-		objeto.translate(4, 0, -15f);
-		objeto.setDrawMode(GL_TRIANGLE_STRIP);
+		//objeto = new GraysKleynBottle(this);
+		//objeto.translate(4, 0, -15f);
+		//objeto.setDrawMode(GL_TRIANGLE_STRIP);
 		
-		esfera = new Sphere(this);
-		esfera.translate(0, 0, -10f);
-		esfera.setDrawMode(GL_LINES);
+		//esfera = new Sphere(this);
+		//esfera.translate(0, 0, -4f);
+		//esfera.setDrawMode(GL_TRIANGLE_STRIP);
+		
+		monkey = new PhongMonkey(this);
+		//monkey = new BlueMonkey(this);
+		monkey.translate(0, 0, -4f);
+		//monkey.setDrawMode(GL_LINES);
 		
 		objeto2 = new KleinBottle(this);
 		objeto2.translate(-18, 0, -50f);
