@@ -17,7 +17,6 @@ import org.nenocom.nlib.shaders.PhongShader;
 import org.nenocom.nlib.utils.Mat3x3;
 
 import android.opengl.Matrix;
-import android.util.Log;
 
 /**
  * @author Antonio Ruiz
@@ -87,12 +86,6 @@ public abstract class PhongObject {
 		uModelInvMatrixHandler = glGetUniformLocation(program, "m_3x3_inv_transp");
 		uViewInvMatrixHandler = glGetUniformLocation(program, "v_inv");
 		
-		/**for(int i=0;i<100;i++){
-			String msg=aPositionHandler+" "+aNormalHandler+" "+uModelMatrixHandler+" "
-		+uViewMatrixHandler+" "+uProjectionMatrixHandler+" "+uModelInvMatrixHandler;
-			Log.v("HHH", msg);
-		}
-		*/
 		
 	}
 	

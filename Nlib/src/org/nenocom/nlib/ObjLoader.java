@@ -20,7 +20,6 @@ import org.nenocom.nlib.geometry.Triangle;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.util.Log;
 
 /**
  * @author Antonio Ruiz

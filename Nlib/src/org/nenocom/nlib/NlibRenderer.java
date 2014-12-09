@@ -7,9 +7,6 @@ package org.nenocom.nlib;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import org.nenocom.nlib.test.GraysKleynBottle;
-import org.nenocom.nlib.test.KleinBottle;
-import org.nenocom.nlib.test.Sphere;
 import org.nenocom.nlib.utils.MMatrix;
 
 import android.content.Context;
@@ -27,7 +24,7 @@ public class NlibRenderer implements Renderer {
 	
 	private float[] projectionMatrix = new float[16];
 	//private ColorLightObject esfera;
-	private PhongMonkey monkey;
+	private PhongObject monkey;
 	
 	/**
 	 * @param context Contexto de la aplicacion(MainActivity)

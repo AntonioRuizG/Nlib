@@ -4,8 +4,8 @@
  */
 package org.nenocom.nlib.test;
 
-import org.nenocom.nlib.ColorLightObject;
 import org.nenocom.nlib.NlibRenderer;
+import org.nenocom.nlib.PhongObject;
 
 import android.opengl.Matrix;
 
@@ -13,7 +13,7 @@ import android.opengl.Matrix;
  * @author Antonio Ruiz
  *
  */
-public class KleinBottle extends ColorLightObject {
+public class KleinBottle extends PhongObject {
 	static int samplesV=50;
 	static int samplesU=50;
 	
@@ -26,75 +26,8 @@ public class KleinBottle extends ColorLightObject {
 	}
 
 	@Override
-	protected float[] getNormals(float[] vertices) {
+	protected float[] getNormals() {
 		return getVertices();
-	}
-
-	@Override
-	protected float[] getColors(float[] vertices) {
-		float[] colores = new float[samplesV*samplesU*24];
-		int offset=0;
-		for(int j=0;j<samplesV;j++){
-			for(int i=0;i<samplesU;i++){
-				
-				
-				
-				
-				float u = (float) ((j/(float)samplesU)*2*Math.PI);
-				double[] vertice=getColor(u);
-				colores[offset++] = (float) vertice[0];
-				colores[offset++] = (float) vertice[1];
-				colores[offset++] = (float) vertice[2];
-				colores[offset++] = (float) vertice[3];
-				
-				u = (float) (((j)/(float)samplesU)*2*Math.PI);
-				vertice=getColor(u);
-				colores[offset++] = (float) vertice[0];
-				colores[offset++] = (float) vertice[1];
-				colores[offset++] = (float) vertice[2];
-				colores[offset++] = (float) vertice[3];
-				
-				u = (float) (((j+1)/(float)samplesU)*2*Math.PI);
-				vertice=getColor(u);
-				colores[offset++] = (float) vertice[0];
-				colores[offset++] = (float) vertice[1];
-				colores[offset++] = (float) vertice[2];
-				colores[offset++] = (float) vertice[3];
-				
-				u = (float) (((j)/(float)samplesU)*2*Math.PI);
-				vertice=getColor(u);
-				colores[offset++] = (float) vertice[0];
-				colores[offset++] = (float) vertice[1];
-				colores[offset++] = (float) vertice[2];
-				colores[offset++] = (float) vertice[3];
-				
-				u = (float) (((j+1)/(float)samplesU)*2*Math.PI);
-				vertice=getColor(u);
-				colores[offset++] = (float) vertice[0];
-				colores[offset++] = (float) vertice[1];
-				colores[offset++] = (float) vertice[2];
-				colores[offset++] = (float) vertice[3];
-				
-				u = (float) (((j+1)/(float)samplesU)*2*Math.PI);
-				vertice=getColor(u);
-				colores[offset++] = (float) vertice[0];
-				colores[offset++] = (float) vertice[1];
-				colores[offset++] = (float) vertice[2];
-				colores[offset++] = (float) vertice[3];
-				
-			}
-		}
-		return colores;
-	}
-	
-	private double[] getColor(float u) {
-		double[] color = new double[4];
-		
-		color[0] = (Math.cos(u)+1.0)/2.0;
-		color[1] = (Math.sin(u)+1.0)/2.0;
-		color[2] = (Math.cos(2*u+1)+1.0)/2.0;
-		color[3] = 0.6f;
-		return color;
 	}
 
 	public void onDrawFrame(){
@@ -178,8 +111,4 @@ public class KleinBottle extends ColorLightObject {
 		 punto[2] = (r * sinv);
 		 return punto;
 	}
-	
-	
-
-	
 }
