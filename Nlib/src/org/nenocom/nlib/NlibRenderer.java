@@ -66,8 +66,8 @@ public class NlibRenderer implements Renderer {
 	public void onSurfaceCreated(GL10 unused, EGLConfig arg1) {
 		float alpha = 1;
 		float blue = 0.0f;
-		float green = 0.7f;
-		float red = 1.0f;
+		float green = 0.0f;
+		float red = 0.0f;
 		glClearColor(red, green, blue, alpha);
 		glEnable(GL_DEPTH_TEST);
 		

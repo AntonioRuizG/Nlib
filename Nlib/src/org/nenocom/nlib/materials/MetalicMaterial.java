@@ -10,11 +10,13 @@ package org.nenocom.nlib.materials;
  * @author Antonio Ruiz
  *
  */
-public class RedPlasticMaterial extends PlasticMaterial {
-
-	private static float[] color = new float[]{1.0f, 0.0f, 0.0f, 1.0f};
+public class MetalicMaterial extends Material {
 	
-	public RedPlasticMaterial() {
-		super(color);
+	private static float shiness = 3;
+
+	
+	public MetalicMaterial(float[] color) {
+		super(color, color, color, shiness);
 	}
+
 }
