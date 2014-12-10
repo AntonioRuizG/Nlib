@@ -16,14 +16,20 @@ public abstract class Shader {
 	protected String vSource;
 	protected String fSource;
 	
-	private int shaderProgram = 0;
-	private boolean changed = true;
+	private final int shaderProgram;
 	
+	
+	public Shader(){
+		vSource = getVertexShaderSource();
+		fSource = getFragmentShaderSource();
+		shaderProgram = buildProgram(vSource, fSource);
+	}
+	
+	protected abstract String getVertexShaderSource();
+	
+	protected abstract String getFragmentShaderSource();
+
 	public int getShaderProgram(){
-		if(changed){
-			changed = false;
-			shaderProgram = buildProgram(vSource, fSource);
-		}
 		return shaderProgram;
 	}
 	
@@ -80,7 +86,8 @@ public abstract class Shader {
 	 * 
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
-		
+		vSource = null;
+		fSource = null;
+		glDeleteProgram(shaderProgram);
 	}
 }

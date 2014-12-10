@@ -29,11 +29,9 @@ public abstract class PhongObject {
 	public int aNormalHandler;
 	
 	public int uModelMatrixHandler;
-	public int uViewMatrixHandler;
-	public int uProjectionMatrixHandler;
-	public int uModelInvMatrixHandler;
+	public int uNormalMatrixHandler;
 	public int uViewInvMatrixHandler;
-	
+	public int uMVPmatrixHandler;
 	
 	
 	
@@ -50,10 +48,13 @@ public abstract class PhongObject {
 	protected final float[] modelMatrix;
 	private final float[] viewMatrix;
 	private final float[] projectionMatrix;
-	//private final float[] modelInvMatrix;
-
+	private final float[] viewInvMatrix;
+	private float[] MVPmatrix;
+	
 	protected final NlibRenderer renderer;
 	private PhongShader shader;
+	
+	
 	
 	public PhongObject(NlibRenderer renderer) {
 		this.renderer = renderer;
@@ -66,9 +67,10 @@ public abstract class PhongObject {
 		
 		viewMatrix = new float[16];
 		modelMatrix = new float[16];
-		//modelInvMatrix = new float[9];
 		projectionMatrix = new float[16];
-		
+		MVPmatrix = new float[16];
+		viewInvMatrix = new float[16];
+		Matrix.invertM(viewInvMatrix, 0, viewMatrix, 0);
 		Matrix.setIdentityM(modelMatrix, 0);
 		
 		Matrix.setIdentityM(viewMatrix, 0);
@@ -78,13 +80,12 @@ public abstract class PhongObject {
 		program = shader.getShaderProgram();
 		glUseProgram(program);
 		
-		aPositionHandler = glGetAttribLocation(program, "v_coord");
-		aNormalHandler = glGetAttribLocation(program, "v_normal");
+		aPositionHandler = glGetAttribLocation(program, "aPosition");
+		aNormalHandler = glGetAttribLocation(program, "aNormal");
 		
-		uModelMatrixHandler = glGetUniformLocation(program, "m");
-		uViewMatrixHandler = glGetUniformLocation(program, "v");
-		uProjectionMatrixHandler = glGetUniformLocation(program, "p");
-		uModelInvMatrixHandler = glGetUniformLocation(program, "m_3x3_inv_transp");
+		uModelMatrixHandler = glGetUniformLocation(program, "modelMatrix");
+		uMVPmatrixHandler = glGetUniformLocation(program, "MVPmatrix");
+		uNormalMatrixHandler = glGetUniformLocation(program, "normalMatrix");
 		uViewInvMatrixHandler = glGetUniformLocation(program, "v_inv");
 		
 		
@@ -136,8 +137,12 @@ public abstract class PhongObject {
 		
 		
 		glUniformMatrix4fv(uModelMatrixHandler, 1, false, modelMatrix, 0);
-		glUniformMatrix4fv(uViewMatrixHandler, 1, false, viewMatrix, 0);
-		glUniformMatrix4fv(uProjectionMatrixHandler, 1, false, projectionMatrix, 0);
+		
+		float[] modelViewMatrix = new float[16];
+		Matrix.multiplyMM(modelViewMatrix, 0, viewMatrix, 0, modelMatrix, 0);
+		Matrix.multiplyMM(MVPmatrix, 0, projectionMatrix, 0, modelViewMatrix, 0);
+		
+		glUniformMatrix4fv(uMVPmatrixHandler, 1, false, MVPmatrix, 0);
 		
 		
 		float []temp = new float[18];
@@ -147,10 +152,9 @@ public abstract class PhongObject {
 		Mat3x3.Mat3(mMVMatrix , temp);
 	    Mat3x3.inverse(temp, temp, 9);
 	    Mat3x3.transpose(temp, 9, normalMatrix);
-		glUniformMatrix3fv(uModelInvMatrixHandler, 1, false, normalMatrix, 0);
+		glUniformMatrix3fv(uNormalMatrixHandler, 1, false, normalMatrix, 0);
 		
-		float[] viewInvMatrix = new float[16];
-		Matrix.invertM(viewInvMatrix, 0, viewMatrix, 0);
+		
 		glUniformMatrix4fv(uViewInvMatrixHandler, 1, false, viewInvMatrix, 0);
 		
 		glDrawArrays(GL_TRIANGLES , 0, vertexCount);

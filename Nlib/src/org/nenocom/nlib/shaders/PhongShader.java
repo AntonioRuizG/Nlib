@@ -11,37 +11,42 @@ package org.nenocom.nlib.shaders;
  */
 public class PhongShader extends Shader {
 	
-	
-	
 	public PhongShader(){
-		vSource = 
-				"attribute vec4 v_coord;" + "\n" +///4343
-				"attribute vec3 v_normal;" + "\n" +
+		super();
+		
+	}
+	
+	@Override
+	protected String getVertexShaderSource() {
+		return  
+				"attribute vec4 aPosition;" + "\n" +
+				"attribute vec3 aNormal;" + "\n" +
 				  			
-				"varying vec4 position;" + "\n" +
-				"varying vec3 varyingNormalDirection;" + "\n" +
+				"varying vec4 vPosition;" + "\n" +
+				"varying vec3 vNormalDirection;" + "\n" +
 				
-				"uniform mat4 m, v, p;" + "\n" +
-				"uniform mat3 m_3x3_inv_transp;" + "\n" +
+				"uniform mat4 MVPmatrix;" + "\n" +
+				"uniform mat4 modelMatrix;" + "\n" +
+				"uniform mat3 normalMatrix;" + "\n" +
 						  
 				"void main()" + "\n" +
 				"{" + "\n" +
-				"	position = m * v_coord;" + "\n" +
+				"	vPosition = modelMatrix * aPosition;" + "\n" +
 						
-				"	varyingNormalDirection = normalize(m_3x3_inv_transp * v_normal);" + "\n" +
-					
-				"	mat4 mvp = p*v*m;" + "\n" +
+				"	vNormalDirection = normalize(normalMatrix * aNormal);" + "\n" +
 				          
-				"	gl_Position = mvp * v_coord;" + "\n" +
+				"	gl_Position = MVPmatrix * aPosition;" + "\n" +
 				"}";
+	}
 	
-	
-		fSource = 
+	@Override
+	protected String getFragmentShaderSource() {
+		return  
 				"precision mediump float;" + "\n" +
 				
-				"varying vec4 position;  // position of the vertex (and fragment) in world space" + "\n" +
-				"varying vec3 varyingNormalDirection;  // surface normal vector in world space" + "\n" +
-				"uniform mat4 m, v, p;" + "\n" +
+				"varying vec4 vPosition;  " + "\n" +
+				"varying vec3 vNormalDirection;  " + "\n" +
+
 				"uniform mat4 v_inv;" + "\n" +
  
 				"struct lightSource" + "\n" +
@@ -79,8 +84,8 @@ public class PhongShader extends Shader {
  
 				"void main()" + "\n" +
 				"{" + "\n" +
-				"  vec3 normalDirection = normalize(varyingNormalDirection);" + "\n" +
-				"  vec3 viewDirection = normalize(vec3(v_inv * vec4(0.0, 0.0, 0.0, 1.0) - position));" + "\n" +
+				"  vec3 normalDirection = normalize(vNormalDirection);" + "\n" +
+				"  vec3 viewDirection = normalize(vec3(v_inv * vec4(0.0, 0.0, 0.0, 1.0) - vPosition));" + "\n" +
 				"  vec3 lightDirection;" + "\n" +
 				"  float attenuation;" + "\n" +
  
@@ -91,7 +96,7 @@ public class PhongShader extends Shader {
 				"    }" + "\n" +
 				"  else // point light or spotlight (or other kind of light)" + "\n" + 
 				"    {" + "\n" +
-				"      vec3 positionToLightSource = vec3(light0.position - position);" + "\n" +
+				"      vec3 positionToLightSource = vec3(light0.position - vPosition);" + "\n" +
 				"      float distance = length(positionToLightSource);" + "\n" +
 				"      lightDirection = normalize(positionToLightSource);" + "\n" +
 				"      attenuation = 1.0 / (light0.constantAttenuation" + "\n" +
