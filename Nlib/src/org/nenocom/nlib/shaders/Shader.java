@@ -5,6 +5,9 @@
 package org.nenocom.nlib.shaders;
 
 import static android.opengl.GLES20.*;
+
+import org.nenocom.nlib.materials.Material;
+
 import android.util.Log;
 
 /**

@@ -4,6 +4,8 @@
  */
 package org.nenocom.nlib.shaders;
 
+import org.nenocom.nlib.materials.Material;
+
 
 /**
  * @author Antonio Ruiz
