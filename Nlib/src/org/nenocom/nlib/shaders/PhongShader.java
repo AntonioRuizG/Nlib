@@ -11,9 +11,10 @@ package org.nenocom.nlib.shaders;
  */
 public class PhongShader extends Shader {
 	
+	
+
 	public PhongShader(Material material){
-		super();
-		
+		super(material);
 	}
 	
 	@Override
@@ -76,10 +77,10 @@ public class PhongShader extends Shader {
 				"  float shininess;" + "\n" +
 				"};" + "\n" +
 				"material frontMaterial = material(" + "\n" +
-				"  vec4(0.2, 0.2, 0.2, 1.0)," + "\n" +
-				"  vec4(1.0, 0.8, 0.8, 1.0)," + "\n" +
-				"  vec4(1.0, 1.0, 1.0, 1.0)," + "\n" +
-				"  5.0" + "\n" +
+				"  "+material.getAmbientComponent()+"," + "\n" +
+				"  "+material.getDiffuseComponent()+"," + "\n" +
+				"  "+material.getSpecularComponent()+"," + "\n" +
+				"  "+material.getShiness() + "\n" +
 				");" + "\n" +
  
 				"void main()" + "\n" +

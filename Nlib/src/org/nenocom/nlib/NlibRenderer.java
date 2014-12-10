@@ -72,7 +72,7 @@ public class NlibRenderer implements Renderer {
 		glEnable(GL_DEPTH_TEST);
 		
 		monkey = new PhongMonkey(this);
-		monkey.translate(0, 0, -4f);
+		monkey.translate(0, 0, -3f);
 	}
 
 	/**

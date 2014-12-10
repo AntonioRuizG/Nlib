@@ -17,12 +17,16 @@ public abstract class Shader {
 	protected String fSource;
 	
 	private final int shaderProgram;
+	protected Material material;
 	
 	
-	public Shader(){
+	public Shader(Material material){
+
+		this.material = material;
 		vSource = getVertexShaderSource();
 		fSource = getFragmentShaderSource();
 		shaderProgram = buildProgram(vSource, fSource);
+		
 	}
 	
 	protected abstract String getVertexShaderSource();
