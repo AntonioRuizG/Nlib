@@ -11,23 +11,26 @@ package org.nenocom.nlib.shaders;
  */
 public class Material {
 
-	private float[] ambientColor;
-	private float[] diffuseColor;
-	private float[] specularColor;
-	private float shiness = (float)Math.random()*100;
+	private final float[] ambientColor;
+	private final float[] diffuseColor;
+	private final float[] specularColor;
+	private float shiness;
 	
-	public Material(){
-		ambientColor = new float[]{(float)Math.random(),
-				(float)Math.random(),(float)Math.random(),
-				(float)Math.random()};
-		
-		diffuseColor = new float[]{(float)Math.random(),
-				(float)Math.random(),(float)Math.random(),
-				(float)Math.random()};
-		
-		specularColor = new float[]{(float)Math.random(),
-				(float)Math.random(),(float)Math.random(),
-				(float)Math.random()};
+	public Material(float[] ambientColor, float[] diffuseColor, float[] specularColor, float shiness){
+		this.ambientColor = ambientColor;
+		this.diffuseColor = diffuseColor;
+		this.specularColor = specularColor;
+		this.shiness = shiness;
+	}
+
+	/**
+	 * 
+	 */
+	public Material() {
+		this.ambientColor = new float[]{1.0f, 1.0f, 1.0f, 1.0f};
+		this.diffuseColor = new float[]{1.0f, 1.0f, 1.0f, 1.0f};
+		this.specularColor = new float[]{1.0f, 1.0f, 1.0f, 1.0f};
+		this.shiness = 5f;
 	}
 
 	/**

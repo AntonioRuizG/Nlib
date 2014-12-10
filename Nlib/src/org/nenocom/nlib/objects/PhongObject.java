@@ -73,7 +73,7 @@ public abstract class PhongObject {
 		Matrix.setIdentityM(viewMatrix, 0);
 		Matrix.setIdentityM(projectionMatrix, 0);
 		
-		shader = new PhongShader(new Material());
+		shader = new PhongShader(new RedPlasticMaterial());
 		program = shader.getShaderProgram();
 		glUseProgram(program);
 		

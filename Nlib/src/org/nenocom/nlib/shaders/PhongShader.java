@@ -67,7 +67,7 @@ public class PhongShader extends Shader {
 				"  180.0, 0.0," + "\n" +
 				"  vec3(0.0, 0.0, 0.0)" + "\n" +
 				");" + "\n" +
-				"vec4 scene_ambient = vec4(0.2, 0.2, 0.2, 1.0);" + "\n" +
+				"vec4 scene_ambient = vec4(0.4, 0.4, 0.4, 1.0);" + "\n" +
 				
 				"struct material" + "\n" +
 				"{" + "\n" +
