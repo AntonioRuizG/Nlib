@@ -5,7 +5,7 @@
 package org.nenocom.nlib.test;
 
 import org.nenocom.nlib.NlibRenderer;
-import org.nenocom.nlib.PhongObject;
+import org.nenocom.nlib.objects.PhongObject;
 
 import android.opengl.Matrix;
 

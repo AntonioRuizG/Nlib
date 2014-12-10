@@ -7,7 +7,10 @@ package org.nenocom.nlib;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import org.nenocom.nlib.objects.PhongMonkey;
+import org.nenocom.nlib.objects.PhongObject;
 import org.nenocom.nlib.utils.MMatrix;
+import org.nenocom.nlib.utils.ObjLoader;
 
 import android.content.Context;
 import static android.opengl.GLES20.*;
