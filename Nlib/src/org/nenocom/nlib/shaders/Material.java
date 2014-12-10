@@ -59,4 +59,13 @@ public class Material {
 		return shiness ;
 	}
 
+	@Override
+	public String toString(){
+		return "material(" + "\n" +
+				"  "+getAmbientComponent()+"," + "\n" +
+				"  "+getDiffuseComponent()+"," + "\n" +
+				"  "+getSpecularComponent()+"," + "\n" +
+				"  "+getShiness() + "\n" +
+				")";
+	}
 }

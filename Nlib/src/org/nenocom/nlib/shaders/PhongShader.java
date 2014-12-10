@@ -76,12 +76,7 @@ public class PhongShader extends Shader {
 				"  vec4 specular;" + "\n" +
 				"  float shininess;" + "\n" +
 				"};" + "\n" +
-				"material frontMaterial = material(" + "\n" +
-				"  "+material.getAmbientComponent()+"," + "\n" +
-				"  "+material.getDiffuseComponent()+"," + "\n" +
-				"  "+material.getSpecularComponent()+"," + "\n" +
-				"  "+material.getShiness() + "\n" +
-				");" + "\n" +
+				"material frontMaterial = "+material.toString()+";" + "\n" +
  
 				"void main()" + "\n" +
 				"{" + "\n" +
