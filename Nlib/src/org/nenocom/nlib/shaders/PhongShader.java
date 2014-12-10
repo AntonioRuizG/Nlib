@@ -11,7 +11,7 @@ package org.nenocom.nlib.shaders;
  */
 public class PhongShader extends Shader {
 	
-	public PhongShader(){
+	public PhongShader(Material material){
 		super();
 		
 	}

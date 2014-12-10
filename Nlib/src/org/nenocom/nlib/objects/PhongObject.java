@@ -14,6 +14,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import org.nenocom.nlib.NlibRenderer;
+import org.nenocom.nlib.shaders.Material;
 import org.nenocom.nlib.shaders.PhongShader;
 import org.nenocom.nlib.utils.Mat3x3;
 
@@ -32,10 +33,6 @@ public abstract class PhongObject {
 	public int uNormalMatrixHandler;
 	public int uViewInvMatrixHandler;
 	public int uMVPmatrixHandler;
-	
-	
-	
-	
 	
 	
 	
@@ -76,7 +73,7 @@ public abstract class PhongObject {
 		Matrix.setIdentityM(viewMatrix, 0);
 		Matrix.setIdentityM(projectionMatrix, 0);
 		
-		shader = new PhongShader();
+		shader = new PhongShader(new Material());
 		program = shader.getShaderProgram();
 		glUseProgram(program);
 		
