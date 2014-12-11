@@ -5,6 +5,7 @@
 package org.nenocom.nlib.test;
 
 import org.nenocom.nlib.NlibRenderer;
+import org.nenocom.nlib.materials.Material;
 import org.nenocom.nlib.objects.PhongObject;
 
 import android.opengl.Matrix;
@@ -21,8 +22,8 @@ public class GraysKleynBottle extends PhongObject {
 	private float ry = (float)Math.random()*2-1;
 	private float rz = (float)Math.random()*2-1;
 	
-	public GraysKleynBottle(NlibRenderer renderer) {
-		super(renderer);
+	public GraysKleynBottle(NlibRenderer renderer, Material material) {
+		super(renderer, material);
 	}
 
 	@Override

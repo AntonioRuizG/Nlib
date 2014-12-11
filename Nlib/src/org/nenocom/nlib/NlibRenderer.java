@@ -7,6 +7,7 @@ package org.nenocom.nlib;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import org.nenocom.nlib.materials.MetalicMaterial;
 import org.nenocom.nlib.objects.PhongMonkey;
 import org.nenocom.nlib.objects.PhongObject;
 import org.nenocom.nlib.utils.MMatrix;
@@ -71,7 +72,7 @@ public class NlibRenderer implements Renderer {
 		glClearColor(red, green, blue, alpha);
 		glEnable(GL_DEPTH_TEST);
 		
-		monkey = new PhongMonkey(this);
+		monkey = new PhongMonkey(this, new MetalicMaterial(new float[]{0,1,0,1}));
 		monkey.translate(0, 0, -3f);
 	}
 

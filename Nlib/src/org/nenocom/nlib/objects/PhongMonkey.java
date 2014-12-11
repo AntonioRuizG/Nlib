@@ -8,6 +8,7 @@
 package org.nenocom.nlib.objects;
 
 import org.nenocom.nlib.NlibRenderer;
+import org.nenocom.nlib.materials.Material;
 import org.nenocom.nlib.utils.ObjLoader;
 
 /**
@@ -16,11 +17,14 @@ import org.nenocom.nlib.utils.ObjLoader;
  */
 public class PhongMonkey extends PhongObject{
 
+
+
 	/**
 	 * @param renderer
+	 * @param material 
 	 */
-	public PhongMonkey(NlibRenderer renderer) {
-		super(renderer);
+	public PhongMonkey(NlibRenderer renderer, Material material) {
+		super(renderer, material);
 	}
 
 	/* (non-Javadoc)

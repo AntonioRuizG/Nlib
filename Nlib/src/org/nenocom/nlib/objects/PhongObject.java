@@ -16,6 +16,7 @@ import java.nio.FloatBuffer;
 import org.nenocom.nlib.NlibRenderer;
 import org.nenocom.nlib.materials.BluePlasticMaterial;
 import org.nenocom.nlib.materials.CeramicMaterial;
+import org.nenocom.nlib.materials.Material;
 import org.nenocom.nlib.materials.MetalicMaterial;
 import org.nenocom.nlib.materials.PlasticMaterial;
 import org.nenocom.nlib.materials.RedPlasticMaterial;
@@ -57,7 +58,7 @@ public abstract class PhongObject {
 	
 	
 	
-	public PhongObject(NlibRenderer renderer) {
+	public PhongObject(NlibRenderer renderer, Material material) {
 		this.renderer = renderer;
 		float[] vertices = getVertices();
 		float[] normals = getNormals();
@@ -77,7 +78,7 @@ public abstract class PhongObject {
 		Matrix.setIdentityM(viewMatrix, 0);
 		Matrix.setIdentityM(projectionMatrix, 0);
 		
-		shader = new PhongShader(new MetalicMaterial(new float[]{1,0,0,1}));
+		shader = new PhongShader(material);
 		program = shader.getShaderProgram();
 		glUseProgram(program);
 		
